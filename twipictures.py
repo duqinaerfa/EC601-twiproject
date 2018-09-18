@@ -1,6 +1,8 @@
 import tweepy
 from tweepy import OAuthHandler
 import json
+import os
+import urllib.request
 
 consumer_key = "nOtk4Opwok3qmKEaXC62CPX5x"
 consumer_secret = "qb7d5RhOTgYviTeNOEMNf8cV0WXXRUbPLbFbIqxn5xaYRitDvf"
@@ -32,9 +34,6 @@ tweets = api.user_timeline(screen_name='TreaclyR',
                            count=200, include_rts=False,
                            exclude_replies=True)
 
-tweets = api.user_timeline(screen_name='TreaclyR',
-                           count=200, include_rts=False,
-                           exclude_replies=True)
 last_id = tweets[-1].id
 
 while (True):
@@ -56,7 +55,10 @@ for status in tweets:
     if(len(media) > 0):
         media_files.add(media[0]['media_url'])
 
-import wget
-
+num=0
 for media_file in media_files:
-    wget.download(media_file)
+    save_name = 'img%03d.jpg'%num
+    urllib.request.urlretrieve(media_file,save_name)
+    num = num + 1
+
+os.popen('ffmpeg -r 0.5 -i img%03d.jpg -vf scale=500:500 -y -r 30 -t 60 out.mp4')
