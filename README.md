@@ -1,6 +1,6 @@
 # EC601
 EC601 projects of Qinmei Du
-# mini projecy 1
+# mini project 1
 It's a project which can download twitter pictures by using API(the first step).  Then make a video by using ffmpeg(the second step).  Finally, it add tags to each pictures by using google vision API.
 ## progress
 1. finish the first step(the upload history can be seen on "commits" in github, the name is "project1").
