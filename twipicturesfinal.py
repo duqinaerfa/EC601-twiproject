@@ -5,10 +5,10 @@ import os
 import urllib.request
 import io
 
-consumer_key = "nOtk4Opwok3qmKEaXC62CPX5x"
-consumer_secret = "qb7d5RhOTgYviTeNOEMNf8cV0WXXRUbPLbFbIqxn5xaYRitDvf"
-access_token = "1039252091238268930-tOd5tJBIXFg2vSh3b11VcOITMs1tHG"
-access_secret = "bQUVnQJkhKwKKJ6QJbYwCgWYnQ3ES15eKIAm1hMwzHC87"
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_secret = ""
 
 
 @classmethod
