@@ -25,9 +25,13 @@ MYSQL_CONFIG = {
 }
 
 
-
 class myApi(object):
     def __init__(self):
+        self.consumer_key = ''
+        self.consumer_secret = ''
+        self.access_key = ''
+        self.access_secret = ''
+        self.err = None
         # mysql
         try:
             self.mysql = pymysql.Connect(**MYSQL_CONFIG)
@@ -42,34 +46,33 @@ class myApi(object):
             print('error: mongodb connection fail')
             raise e
 
-    @classmethod
-    def parse(cls, api, raw):
-        status = cls.first_parse(api, raw)
-        setattr(status, 'json', json.dumps(raw))
-        return status
+    def set_consumer_key(self, c_key, c_secret):
+        self.consumer_key = c_key
+        self.consumer_secret = c_secret
+        return 0
+
+    def set_access_key(self, a_key, a_secret):
+        self.access_key = a_key
+        self.access_secret = a_secret
+        return 0
 
     def connect(self):
-        # Status() is the data model for a tweet
-        tweepy.models.Status.first_parse = tweepy.models.Status.parse
-        tweepy.models.Status.parse = self.parse
-        # User() is the data model for a user profil
-        tweepy.models.User.first_parse = tweepy.models.User.parse
-        tweepy.models.User.parse = self.parse
-
-        auth = OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_secret)
-
-        self.api = tweepy.API(auth)
-
-        tweets = self.api.user_timeline(screen_name='TreaclyR',
-                                   count=20, include_rts=False,
-                                   exclude_replies=True)
-
-        last_id = tweets[-1].id
-
-        self.log('connect twitter')
+        try:
+            auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+            auth.set_access_token(access_token, access_secret)
+            self.api = tweepy.API(auth)
+        except Exception as e:
+            self.error = e
+            raise e
+        finally:
+            self.log('connect twitter')
 
     def getimages(self):
+        tweets = self.api.user_timeline(screen_name='TreaclyR',
+                                        count=20, include_rts=False,
+                                        exclude_replies=True)
+
+        last_id = tweets[-1].id
         while (True):
             more_tweets = self.api.user_timeline(screen_name='TreaclyR',
                                             count=20,

@@ -1,7 +1,14 @@
 import twidatabase
 
+consumer_key = "nOtk4Opwok3qmKEaXC62CPX5x"
+consumer_secret = "qb7d5RhOTgYviTeNOEMNf8cV0WXXRUbPLbFbIqxn5xaYRitDvf"
+access_token = "1039252091238268930-tOd5tJBIXFg2vSh3b11VcOITMs1tHG"
+access_secret = "bQUVnQJkhKwKKJ6QJbYwCgWYnQ3ES15eKIAm1hMwzHC87"
+
 testapi = twidatabase.myApi()
 
+testapi.set_consumer_key(consumer_key, consumer_secret)
+testapi.set_access_key(access_token, access_secret)
 testapi.connect()
 
 testapi.getimages()
