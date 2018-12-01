@@ -1,9 +1,9 @@
 # EC601-twiproject
 EC601 projects of Qinmei Du
-##miniproject3
+## miniproject3
 use twidatabase.py and test.py to connect and operate database.
-##prepare
-###install
+## prepare
+### install
 tweepy, wget, ffmpeg, googlevision,pymysql, pymongo
-###database
+### database
 mysql, mongodb. Create databases and tables first.
